@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 // 引入组件
 import Login from '@/views/login'
+import Register from '@/views/register'
 
 const router = new VueRouter({
   routes: [
@@ -13,6 +14,11 @@ const router = new VueRouter({
       name: 'login',
       path: '/login',
       component: Login
+    },
+    {
+      name: 'register',
+      path: '/register',
+      component: Register
     }
   ]
 })
