@@ -24,7 +24,7 @@
 <script>
 import mybutton from '../components/mybutton'
 import myipt from '../components/myipt'
-import {myaxios} from "@/utils/myaxios"
+// import {myaxios} from "@/utils/myaxios"
 import { Toast } from 'vant';
 import 'vant/lib/index.css';
 export default {

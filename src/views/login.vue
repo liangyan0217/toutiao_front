@@ -32,7 +32,7 @@
 <script>
 import mybutton from "@/components/mybutton";
 import myipt from "@/components/myipt";
-import { myaxios } from "@/utils/myaxios";
+import {login} from '../apis/user'
 export default {
   data() {
     return {
@@ -51,9 +51,8 @@ export default {
     // 接口类型:【POST】
     // 接口地址: '/login'
     login() {
-      // console.log(e);
-      // console.log(this.user.username);
-      myaxios.post("/login", this.user)
+      // myaxios.post("/login", this.user)
+      login(this.user)
         .then((data) => {
           console.log(data);
           if (data.data.statusCode === 401) {

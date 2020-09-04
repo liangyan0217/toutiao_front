@@ -24,7 +24,7 @@
 <script>
 import mycell from '@/components/mycell'
 import mybutton from '@/components/mybutton'
-import { myaxios } from '@/utils/myaxios'
+import { user } from '@/apis/user';
 export default {
   data(){
     return{
@@ -41,7 +41,8 @@ export default {
     // 接口类型:【GET】
     // 需要验证:【Authorization 】
     // 接口地址:/user/:id 
-    myaxios.get(`/user/${this.$route.params.id}`,{params:{id:this.$route.params.id}})
+    // myaxios.get(`/user/${this.$route.params.id}`,{params:{id:this.$route.params.id}})
+    user(this.$route.params.id)
     .then((data)=>{
       console.log(data);
       this.current=data.data.data
