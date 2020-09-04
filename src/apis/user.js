@@ -4,6 +4,7 @@ import myaxios from '@/utils/myaxios'
 // 接口类型:【POST】
 // 接口地址: '/login'
 export const login =function(data){
+  // axios方法返回的是一个promise对象，用户接收之后可以then和catch
   return myaxios({
     method:'post',
     url:'/login',

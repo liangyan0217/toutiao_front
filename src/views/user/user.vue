@@ -28,7 +28,7 @@ import { user } from '@/apis/user';
 export default {
   data(){
     return{
-      current:'',
+      current:{},
       baseURL:''
     }
   },
@@ -36,21 +36,23 @@ export default {
     mycell,
     mybutton
   },
-  mounted () {
+  async mounted () {
     // 用户详情
     // 接口类型:【GET】
     // 需要验证:【Authorization 】
     // 接口地址:/user/:id 
     // myaxios.get(`/user/${this.$route.params.id}`,{params:{id:this.$route.params.id}})
-    user(this.$route.params.id)
-    .then((data)=>{
-      console.log(data);
+    let data = await user(this.$route.params.id)
+    // .then((data)=>{
+    //   console.log(data);
+    if(data.data.message==='获取成功'){
       this.current=data.data.data
       this.baseURL=data.config.baseURL
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+    // })
+    // .catch((err)=>{
+    //   console.log(err);
+    // })
+    }
   }
 };
 </script>
