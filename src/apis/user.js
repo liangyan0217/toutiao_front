@@ -17,6 +17,7 @@ export const login =function(data){
 // 需要验证:【Authorization 】
 // 接口地址:/user/:id 
 export const user =function(id){
+  // 创建axios实例对象
   return myaxios({
     url:`/user/${id}`,
     headers: { Authorization: localStorage.getItem('token')}

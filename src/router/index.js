@@ -34,7 +34,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log(123);
   console.log(to);
-  if(to.name==='user'){
+  if(to.name==='user1'){
     if(localStorage.getItem('token')){
       next()
     }else{
