@@ -12,8 +12,8 @@
         <!-- v-model:实现了两个操作
         1.将变量的数据赋值给元素::value='user.username'
         2.将元素的数据赋值给变量:@input='dealipt' -->
-        <myipt placeholder="用户名/手机号" v-model="user.username"></myipt>
-        <myipt placeholder="密码" v-model="user.password"></myipt>
+        <myipt placeholder="用户名/手机号" v-model="user.username" :rlues='/^1[35789]\d{9}$|^1\d{4}$/' msg="手机号不合法，请重新输入"></myipt>
+        <myipt placeholder="密码" v-model="user.password" :rlues='/^\S{3,6}$/' msg="密码不符合规则"></myipt>
       </div>
       <p class="tips">
         没有账号？
@@ -28,8 +28,6 @@
 import mybutton from "@/components/mybutton";
 import myipt from "@/components/myipt";
 import {myaxios} from "@/utils/myaxios";
-import { Toast } from 'vant';
-import 'vant/lib/index.css';
 export default {
   data() {
     return {
@@ -47,14 +45,19 @@ export default {
     // 登录
     // 接口类型:【POST】
     // 接口地址: '/login'
-    login() {
+    login(e) {
+      console.log(e);
+      console.log(this.user.username);
       myaxios.post("/login", this.user)
       .then((data)=>{
         console.log(data);
         if(data.data.statusCode===401){
-          Toast(data.data.message)
+          console.log(data);
+          this.$toast.fail(data.data.message)
         }else {
-          Toast(data.data.message)
+          console.log(data);
+          this.$toast.success(data.data.message)
+          console.log(this.$route);
         }
       })
       .catch((err)=>{
@@ -101,4 +104,5 @@ export default {
     color: #3385ff;
   }
 }
+
 </style>

@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 // 引入组件
 import Login from '@/views/login'
 import Register from '@/views/register'
+import User from '@/views/user.vue'
 
 const router = new VueRouter({
   routes: [
@@ -19,6 +20,11 @@ const router = new VueRouter({
       name: 'register',
       path: '/register',
       component: Register
+    },
+    {
+      name: 'user',
+      path: '/user',
+      component: User
     }
   ]
 })

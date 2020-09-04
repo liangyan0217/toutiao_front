@@ -11,28 +11,12 @@
         <myipt placeholder="用户名/手机号码" v-model="user.username"></myipt>
         <myipt placeholder="昵称" v-model="user.password"></myipt>
         <myipt placeholder="密码" v-model="user.nickname"></myipt>
-        <!-- <input placeholder="手机号码" class="input" rule="/^1[0-9]{4,10}$/" err_message="手机号码格式不正确" /> -->
-        <!-- <input
-          data-v-744880be
-          placeholder="昵称"
-          class="input"
-          rule="/^[0-9a-zA-Z\u4e00-\u9fa5]{2,6}$/"
-          err_message="昵称格式不正确"
-        /> -->
-        <!-- <input
-          placeholder="密码"
-          class="input"
-          type="password"
-          rule="/^[0-9a-zA-Z]{3,12}$/"
-          err_message="密码格式不正确"
-        /> -->
       </div>
       <p class="tips">
         有账号？
         <a href="#/login" class>去登录</a>
       </p>
       <mybutton @click="register">注册</mybutton>
-      <!-- <div data-v-4bc01e24 class="button">注册</div> -->
     </div>
   </div>
 </template>
