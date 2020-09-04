@@ -1,5 +1,7 @@
 <template>
-  <div class="btn" @click="handlerclick">
+  <div class="btn" @click="handlerclick" :class="{primary:type==='primary',
+    success:type==='success',
+    danger:type==='danger'}">
     <!-- 匿名插槽：插槽没有名称，后期你在使用子组件的时候添加的内容，都会替换到这个结构 -->
     <slot></slot>
   </div>
@@ -7,6 +9,7 @@
 
 <script>
 export default {
+  props:['type'],
   methods: {
     handlerclick(e){
       this.$emit('click',e)
@@ -26,5 +29,14 @@ export default {
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+}
+.primary {
+  background-color: pink;
+}
+.success {
+  background-color: green;
+}
+.danger {
+  background-color: red;
 }
 </style>

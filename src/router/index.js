@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 // 引入组件
 import Login from '@/views/login'
 import Register from '@/views/register'
-import User from '@/views/user.vue'
+import User from '@/views/user/user.vue'
 
 const router = new VueRouter({
   routes: [
@@ -23,10 +23,27 @@ const router = new VueRouter({
     },
     {
       name: 'user',
-      path: '/user',
+      path: '/user/:id',
       component: User
     }
   ]
+})
+
+// 添加导航守卫
+router.beforeEach((to, from, next) => {
+  console.log(123);
+  console.log(to);
+  if(to.name==='user'){
+    if(localStorage.getItem('token')){
+      next()
+    }else{
+      next({path:'/login'})
+    }
+  }else{
+    // 如果不是访问需要授权的页面，则不需要判断是否登陆
+    next()
+  }
+  
 })
 // 暴露路由
 export default router
