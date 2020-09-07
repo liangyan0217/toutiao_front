@@ -23,3 +23,15 @@ export const user =function(id){
     headers: { Authorization: localStorage.getItem('token')}
   })
 }
+
+// 编辑用户信息
+// 接口类型:【POST】
+// 需要验证:【Authorization 】
+// 接口地址: /user_update/:id
+export const userUpdate =function(id,data){
+  return myaxios({
+    method:'post',
+    url:`/user_update/${id}`,
+    data
+  })
+}

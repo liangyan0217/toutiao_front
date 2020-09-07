@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 import Login from '@/views/login'
 import Register from '@/views/register'
 import User from '@/views/user/user.vue'
-
+import editUser from '@/views/user/editUser.vue'
 const router = new VueRouter({
   routes: [
     // 添加具体的路由配置，实现路由映射组件
@@ -25,6 +25,11 @@ const router = new VueRouter({
       name: 'user',
       path: '/user/:id',
       component: User
+    },
+    {
+      name: 'editUser',
+      path: '/editUser/:id',
+      component: editUser
     }
   ]
 })

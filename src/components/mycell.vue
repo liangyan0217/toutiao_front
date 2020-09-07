@@ -1,7 +1,7 @@
 <template>
   <div class="cell">
     <div class="left">{{title}}</div>
-    <div class="right">
+    <div class="right" @click="hanlderclick">
       {{desc}}
       <span class="iconfont iconjiantou1"></span>
     </div>
@@ -11,6 +11,11 @@
 <script>
 export default {
   props: ["title", "desc"],
+  methods: {
+    hanlderclick(e){
+      this.$emit('click',e)
+    }
+  }
 };
 </script>
 

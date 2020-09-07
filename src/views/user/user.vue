@@ -1,6 +1,6 @@
 <template>
   <div class="personal">
-    <router-link to="/edit_profile">
+    <router-link :to="'/editUser/'+current.id">
       <div class="profile">
         <img :src="baseURL+current.head_img" alt />
         <div class="profile-center">
@@ -34,7 +34,7 @@ export default {
   },
   components: {
     mycell,
-    mybutton
+    mybutton,
   },
   async mounted () {
     // 用户详情
@@ -42,9 +42,10 @@ export default {
     // 需要验证:【Authorization 】
     // 接口地址:/user/:id 
     // myaxios.get(`/user/${this.$route.params.id}`,{params:{id:this.$route.params.id}})
+    // this.baseURL = myaxios.defaults.baseURL
     let data = await user(this.$route.params.id)
     // .then((data)=>{
-    //   console.log(data);
+      // console.log(data);
     if(data.data.message==='获取成功'){
       this.current=data.data.data
       this.baseURL=data.config.baseURL
