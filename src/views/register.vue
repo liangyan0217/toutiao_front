@@ -10,56 +10,50 @@
       <div class="inputs">
         <myipt placeholder="用户名/手机号码" v-model="user.username"></myipt>
         <myipt placeholder="昵称" v-model="user.password"></myipt>
-        <myipt placeholder="密码" v-model="user.nickname"></myipt>
+        <myipt placeholder="密码" v-model="user.nickname" type="password"></myipt>
       </div>
       <p class="tips">
         有账号？
         <a href="#/login" class>去登录</a>
       </p>
-      <mybutton @click="register">注册</mybutton>
+      <mybutton @click="handlerregister">注册</mybutton>
     </div>
   </div>
 </template>
 
 <script>
-import mybutton from '../components/mybutton'
-import myipt from '../components/myipt'
-// import {myaxios} from "@/utils/myaxios"
-import { Toast } from 'vant';
-import 'vant/lib/index.css';
+import mybutton from "@/components/mybutton";
+import myipt from "@/components/myipt";
+import {register} from "@/apis/user";
 export default {
-  data(){
-    return{
-      user:{
-        username:'',
-        password:'',
-        nickname:''
-      }
-    }
+  data() {
+    return {
+      user: {
+        username: "",
+        password: "",
+        nickname: "",
+      },
+    };
   },
   components: {
     mybutton,
-    myipt
+    myipt,
   },
   methods: {
-  // 注册
-  // 接口类型:【POST】
-  // 接口地址: /register
-    register(){
-      myaxios.post('/register',this.user)
-      .then((data)=>{
-        console.log(data);
-        if(data.data.statusCode===400){
-          Toast(data.data.message)
-        }else{
-          Toast(data.data.message)
-        }
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-    }
-  }
+    // 注册
+    // 接口类型:【POST】
+    // 接口地址: /register
+    async handlerregister() {
+      let res = await register(this.user);
+      console.log(res);
+      if (res.data.statusCode === 400) {
+        this.$toast.fail(res.data.message);
+      } else {
+        this.$toast.success(res.data.message);
+        this.$router.push({name:'login'})
+      }
+    },
+  },
 };
 </script>
 

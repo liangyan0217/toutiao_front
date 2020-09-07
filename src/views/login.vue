@@ -32,7 +32,7 @@
 <script>
 import mybutton from "@/components/mybutton";
 import myipt from "@/components/myipt";
-import {login} from '../apis/user'
+import {login} from '@/apis/user'
 export default {
   data() {
     return {

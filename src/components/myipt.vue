@@ -1,36 +1,48 @@
 <template>
-  <input type="text" class="ipt" @input="handleript" @change="handlerchange" :class="statu?'success':'error'"/>
+  <input
+    :type="type"
+    class="ipt"
+    @input="handleript"
+    @change="handlerchange"
+    :class="statu?'success':'error'"
+  />
   <!-- <input type="text" class="ipt" @input="handleript" @change="handlerchange" :class="{success:statu,error:!statu}"/> -->
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      statu:true
-    }
+  data() {
+    return {
+      statu: true,
+    };
   },
-  props:{
-    rlues:RegExp,
-    msg:String
+  props: {
+    rlues: RegExp,
+    msg: String,
+    type:String
+    
   },
   methods: {
-    handleript(e){
+    handleript(e) {
       // 事件类型一定是input
-      this.$emit('input',e.target.value)
+      this.$emit("input", e.target.value);
       // 验证正则规则
-      if(this.rlues&&this.rlues.test(e.target.value)){
-        this.statu=true
-      }else{
-        this.statu=false
+      if (this.rlues) {
+        if (this.rlues.test(e.target.value)) {
+          this.statu = true;
+        } else {
+          this.statu = false;
+        }
       }
     },
-    handlerchange(e){
-      if(this.rlues && !this.rlues.test(e.target.value)){
-        this.$toast.fail(this.msg ||'请重新输入')
+    handlerchange(e) {
+      if (this.rlues) {
+        if (!this.rlues.test(e.target.value)) {
+          this.$toast.fail(this.msg || "请重新输入");
+        }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
