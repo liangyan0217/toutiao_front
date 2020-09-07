@@ -67,7 +67,7 @@ export default {
           } else {
             this.$toast.success(data.data.message);
             localStorage.setItem("token", data.data.data.token);
-            this.$router.push({ path: `/user/${data.data.data.user.id}` })
+            this.$router.push({name:'index'})
           }
         // })
         // .catch((err) => {

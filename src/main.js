@@ -6,12 +6,15 @@ import router from '@/router/index'
 // @相当于/src目录
 import Css from '@/styles/reset.less'
 // import 'vant/lib/index.css';
-import { Toast,Uploader,Dialog,Field,Picker } from 'vant';
+import { Toast,Uploader,Dialog,Field,Picker,Icon,Tab,Tabs} from 'vant';
 Vue.use(Toast)
     .use(Uploader)
     .use(Dialog)
     .use(Field)
     .use(Picker)
+    .use(Icon)
+    .use(Tab)
+    .use(Tabs)
 Vue.config.productionTip = false
 
 new Vue({
