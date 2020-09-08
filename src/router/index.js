@@ -43,8 +43,8 @@ const router = new VueRouter({
 // 添加导航守卫
 // next()类似于中间件，每个路由跳转都经过这步
 router.beforeEach((to, from, next) => {
-  console.log(123);
-  console.log(to);
+  // console.log(123);
+  // console.log(to);
   if(to.name==='user1'){
     if(localStorage.getItem('token')){
       next()

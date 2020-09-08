@@ -5,7 +5,7 @@
         <img :src="baseURL+current.head_img" alt />
         <div class="profile-center">
           <div class="name">
-            <span class="iconfont" :class="current.gender?'iconxingbienv':'iconxingbienan'"></span>
+            <span class="iconfont" :class="current.gender==0?'iconxingbienv':'iconxingbienan'"></span>
             {{current.nickname}}
           </div>
           <div class="time">2019-9-24</div>
@@ -17,7 +17,7 @@
     <mycell title="我的跟帖" desc="跟帖/回复"></mycell>
     <mycell title="我的收藏" desc="文章/视频"></mycell>
     <mycell title="我的关注"></mycell>
-    <mybutton class="btn" type='danger'>退出</mybutton>
+    <mybutton class="btn" type='danger' @click="handlerclick">退出</mybutton>
   </div>
 </template>
 
@@ -53,6 +53,12 @@ export default {
     // .catch((err)=>{
     //   console.log(err);
     // })
+    }
+  },
+  methods: {
+    handlerclick(){
+      localStorage.removeItem('token','id')
+      this.$router.push({name:'index'})
     }
   }
 };

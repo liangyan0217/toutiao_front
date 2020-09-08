@@ -67,6 +67,7 @@ export default {
           } else {
             this.$toast.success(data.data.message);
             localStorage.setItem("token", data.data.data.token);
+            localStorage.setItem("id",data.data.data.user.id);
             this.$router.push({name:'index'})
           }
         // })

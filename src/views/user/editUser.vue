@@ -19,7 +19,13 @@
       />
     </van-dialog>
     <mycell title="密码" desc="*****" @click="passshow=!passshow"></mycell>
-    <van-dialog v-model="passshow" title="修改密码" show-cancel-button @confirm="updatePassword" :before-close="beforeClose">
+    <van-dialog
+      v-model="passshow"
+      title="修改密码"
+      show-cancel-button
+      @confirm="updatePassword"
+      :before-close="beforeClose"
+    >
       <van-field
         :value="oldPassword"
         label="原密码"
@@ -86,6 +92,11 @@ export default {
         let result = await userUpdate(this.$route.params.id, {
           head_img: res.data.data.url,
         });
+        if (result.data.message == "修改成功") {
+          this.$toast.success("修改用户头像成功");
+        } else {
+          this.$toast.fail("修改用户头像失败");
+        }
       } else {
         this.$toast.fail("文件上传失败");
       }
@@ -99,25 +110,25 @@ export default {
       this.newnickname = data;
     },
     async updateNickname() {
-      if(this.newnickname.trim().length===0){
-        this.$toast.fail('请输入昵称')
-      }else{
-      let result = await userUpdate(this.$route.params.id, {
-        nickname: this.newnickname,
-      });
-      if (result.data.message === "修改成功") {
-        this.current.nickname = this.newnickname;
-        this.$toast.success("修改昵称成功");
+      if (this.newnickname.trim().length === 0) {
+        this.$toast.fail("请输入昵称");
       } else {
-        this.$toast.fail("修改昵称失败");
-      }
-      console.log(result);
+        let result = await userUpdate(this.$route.params.id, {
+          nickname: this.newnickname,
+        });
+        if (result.data.message === "修改成功") {
+          this.current.nickname = this.newnickname;
+          this.$toast.success("修改昵称成功");
+        } else {
+          this.$toast.fail("修改昵称失败");
+        }
+        console.log(result);
       }
     },
     // 修改密码
     getOldPass(data) {
       console.log(data);
-      this.oldPassword=data
+      this.oldPassword = data;
     },
     getNewPass(data) {
       console.log(data);
@@ -125,7 +136,7 @@ export default {
     },
 
     async updatePassword() {
-      if(this.oldPassword===this.current.password){
+      if (this.oldPassword === this.current.password) {
         let result = await userUpdate(this.$route.params.id, {
           password: this.newpassword,
         });
@@ -135,7 +146,7 @@ export default {
         } else {
           this.$toast.fail("修改密码失败");
         }
-      }else{
+      } else {
         this.$toast.fail("原密码输入错误");
       }
     },
@@ -146,11 +157,11 @@ export default {
           done(false);
         } else {
           // 清空
-          this.oldPassword=this.newpassword=''
+          this.oldPassword = this.newpassword = "";
           done();
         }
       } else {
-        this.oldPassword=this.newpassword=''
+        this.oldPassword = this.newpassword = "";
         done();
       }
     },
