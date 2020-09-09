@@ -13,7 +13,10 @@
         <span>{{article.nickname}}</span> &nbsp;&nbsp;
         <span>2019-9-9</span>
       </div>
-      <div class="content" v-html="article.content">
+      <div class="content" v-if="article.type==1||(article.type==2&&article.id==8)" v-html="article.content">
+      </div>
+      <div class="content" v-if="article.type==2">
+        <video :src="article.content" autoplay muted controls></video>
       </div>
       <div class="opt">
         <span class="like" :class="article.has_like?'active':''" @click="articleLike">
@@ -27,16 +30,16 @@
     <!-- 精彩跟帖 -->
     <div class="keeps">
       <h2>精彩跟帖</h2>
-      <div class="item">
+      <div class="item" v-for="(value,index) in commentList" :key="index">
         <div class="head">
-          <img src="../assets/logo.png" alt />
+          <img :src="baseURL+commentList[index].user.head_img" alt />
           <div>
-            <p>火星网友</p>
+            <p>{{commentList[index].nickname}}</p>
             <span>2小时前</span>
           </div>
           <span>回复</span>
         </div>
-        <div class="text">文章说得很有道理</div>
+        <div class="text">{{commentList[index].content}}</div>
       </div>
       <div class="more">更多跟帖</div>
     </div>
@@ -44,12 +47,14 @@
 </template>
 
 <script>
-import { newdDetail } from "@/apis/article";
+import { newdDetail,postComment } from "@/apis/article";
 import { userFollows,userUnfollow,postLike } from "@/apis/user";
 export default {
   data(){
     return{
-      article:{}
+      article:{},
+      commentList:{},
+      baseURL:''
     }
   },
   async mounted () {
@@ -57,6 +62,12 @@ export default {
     let result = await newdDetail(this.$route.params.id)
       console.log(result);
       this.article=result.data.data
+    // 获取评论列表
+    let res = await postComment(this.$route.params.id)
+    console.log(res);
+    this.commentList=res.data.data
+    this.baseURL=res.config.baseURL
+
   },
   methods: {
     // 用户关注与取消关注
@@ -143,6 +154,14 @@ export default {
     /deep/ img {
         width: 100%;
         display: block;
+    }
+    >video {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      // height: 100%;
+      /* object-fit: fill; */
     }
   }
 }

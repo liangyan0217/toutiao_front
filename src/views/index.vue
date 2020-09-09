@@ -149,12 +149,6 @@ export default {
         this.cateList[this.active].finished = false
       }, 2000);
     },
-    // 跳转文章详情页
-    // async handlerclick(index){
-    //   this.$router.push({path:`/newdetail/${this.cateList[this.active].postList[index].id}`})
-    //   let result = await newdDetail(this.cateList[this.active].postList[index].id)
-    //   console.log(result);
-    // },
   },
 };
 </script>

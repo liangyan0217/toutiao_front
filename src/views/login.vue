@@ -71,7 +71,7 @@ export default {
             // decodeURIComponent:可以对url进行解码
             let backUrl = decodeURIComponent(window.location.hash.split('=')[1])
             console.log(backUrl);
-            if(backUrl){
+            if(!backUrl){
               this.$router.push({path:backUrl})
             }else{
               this.$router.push({name:'index'})

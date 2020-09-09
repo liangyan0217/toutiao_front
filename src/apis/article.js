@@ -17,3 +17,12 @@ export const newdDetail = function(id){
     url:`/post/${id}`
   })
 }
+
+// 评论列表
+// 接口类型:【GET】
+// 接口地址: /post_comment/:id
+export const postComment =(id)=>{
+  return myaxios({
+    url:`/post_comment/${id}`
+  })
+}

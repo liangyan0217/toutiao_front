@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="single" v-if="post.type==1&&post.cover.length<=2">
-      <div class="left">
-        <p class="content" @click="$router.push({path:`/newdetail/${post.id}`})">{{post.title}}</p>
+      <div class="left" @click="$router.push({path:`/newdetail/${post.id}`})">
+        <p class="content">{{post.title}}</p>
         <p class="info">
           <span>{{post.user.nickname}}</span>
           <span>{{post.comment_length}}跟帖</span>
@@ -10,8 +10,8 @@
       </div>
       <img :src="post.cover[0].url" alt />
     </div>
-    <div class="single" v-else-if="post.type==2">
-      <div class="content" @click="$router.push({path:`/newdetail/${post.id}`})">{{post.title}}</div>
+    <div class="single" v-else-if="post.type==2" @click="$router.push({path:`/newdetail/${post.id}`})">
+      <div class="content">{{post.title}}</div>
       <div class="video">
         <img :src="post.cover[0].url" alt/>
         <van-icon name="play-circle-o" />
@@ -21,8 +21,8 @@
         <span>{{post.comment_length}}跟帖</span>
       </div>
     </div>
-    <div class="single" v-else-if="post.type==1&&post.cover.length<=3">
-      <div class="content" @click="$router.push({path:`/newdetail/${post.id}`})">{{post.title}}</div>
+    <div class="single" v-else-if="post.type==1&&post.cover.length<=3" @click="$router.push({path:`/newdetail/${post.id}`})">
+      <div class="content">{{post.title}}</div>
       <div class="imgs">
         <img :src="post.cover[index].url" v-for="(value,index) in post.cover" :key="index" alt />
       </div>
