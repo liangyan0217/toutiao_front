@@ -12,7 +12,10 @@
     </div>
     <div class="single" v-else-if="post.type==2">
       <div class="content">{{post.title}}</div>
-      <img :src="post.cover[0].url" alt class="video" />
+      <div class="video">
+        <img :src="post.cover[0].url" alt/>
+        <van-icon name="play-circle-o" />
+      </div>
       <div class="info">
         <span>{{post.user.nickname}}</span>
         <span>{{post.comment_length}}跟帖</span>
@@ -96,6 +99,7 @@ body {
     }
   }
   .video {
+    position: relative;
     width: 100%;
     height: 170/360 * 100vw;
     padding: 10px;
@@ -104,50 +108,14 @@ body {
       width: 100%;
       height: 100%;
     }
+    >.van-icon{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      color: #fff;
+      font-size: 40px;
+    }
   }
 }
-// .single2{
-//   padding: 15px 0px;
-//   border-bottom: 1px solid #ccc;
-//   .info {
-//     font-size: 12px;
-//     padding-left:5px;
-//     color: #999;
-//     > span:nth-of-type(1) {
-//       padding-right: 15px;
-//     }
-//   }
-//   .video {
-//     width: 100%;
-//     height: 170/360 * 100vw;
-//     padding: 10px;
-//     box-sizing: border-box;
-//     > img {
-//       width: 100%;
-//       height: 100%;
-//     }
-//   }
-// }
-// .single3{
-//   padding: 15px 0px;
-//   border-bottom: 1px solid #ccc;
-//   .imgs {
-//     display: flex;
-//     padding: 10px 0 0 0;
-//     > img {
-//       flex: 1;
-//       padding: 0 5px;
-//       box-sizing: border-box;
-//       display: block;
-//     }
-//   }
-//   .info {
-//     font-size: 12px;
-//     padding-left:5px;
-//     color: #999;
-//     > span:nth-of-type(1) {
-//       padding-right: 15px;
-//     }
-//   }
-// }
 </style>

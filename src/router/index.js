@@ -35,6 +35,9 @@ const router = new VueRouter({
     {
       name: 'index',
       path: '/index',
+      // meta:{
+      //   keepAlive:true
+      // },
       component: Index
     }
   ]
