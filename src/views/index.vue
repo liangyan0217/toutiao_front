@@ -24,7 +24,7 @@
           <van-pull-refresh v-model="cateList[active].isLoading" @refresh="onRefresh">
             <!-- 文章列表 -->
             <!-- <keep-alive> -->
-            <myarticle v-for="(value,index) in value.postList" :key="value.id" :post="value"></myarticle>
+            <myarticle v-for="(value,index) in value.postList" :key="value.id" :post="value" @click="handlerclick(index)"></myarticle>
             <!-- </keep-alive> -->
           </van-pull-refresh>
         </van-list>
@@ -35,7 +35,7 @@
 
 <script>
 import { categoryList } from "@/apis/cate";
-import { articleList } from "@/apis/article";
+import { articleList,newdDetail } from "@/apis/article";
 import myarticle from "@/components/myarticle";
 export default {
   components: {
@@ -83,11 +83,11 @@ export default {
         // 数据条数
         pageSize: 5,
         // 上拉加载
-        loading: false,
+        loading: false,//上拉加载完毕,loading设置为false
         // 上拉加载完成
-        finished: false,
+        finished: false,//若数据已全部加载完毕，finished设置为true
         // 下拉刷新
-        isLoading: false,
+        isLoading: false,//下拉刷新加载完毕，isLoading设置为false
       };
     });
     console.log(this.cateList);
@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     async init() {
-      // 文章列表
+      // 获取新闻列表数据
       let result = await articleList({
         category: this.cateList[this.active].id,
         // 当前页数
@@ -120,17 +120,21 @@ export default {
           // 数据条数
           pageSize: this.cateList[this.active].pageSize,
         });
+        // console.log(this.cateList[this.active].pageSize);
+        // console.log(this.cateList[this.active].pageIndex);
+        // console.log(result.data.data);
         // 将获取到的文章数据追加到改造出的postList中
         this.cateList[this.active].postList.push(...result.data.data);
         this.cateList[this.active].loading = false;
-        if (this.cateList[this.active].pageSize > result.data.data) {
+        if (this.cateList[this.active].pageSize > result.data.data.length) {
           this.cateList[this.active].finished = true;
         }
       }, 2000);
     },
+    // 下拉刷新
     onRefresh() {
       setTimeout(async () => {
-        this.cateList[this.active].pageIndex = 0;
+        this.cateList[this.active].pageIndex = 1;
         this.cateList[this.active].postList.length = 0;
         let result = await articleList({
           category: this.cateList[this.active].id,
@@ -141,8 +145,16 @@ export default {
         // 将获取到的文章数据追加到改造出的postList中
         this.cateList[this.active].postList.push(...result.data.data);
         this.cateList[this.active].isLoading = false;
+        // 将finished重置为false,否则不能再进行上拉加载
+        this.cateList[this.active].finished = false
       }, 2000);
     },
+    // 跳转文章详情页
+    // async handlerclick(index){
+    //   this.$router.push({path:`/newdetail/${this.cateList[this.active].postList[index].id}`})
+    //   let result = await newdDetail(this.cateList[this.active].postList[index].id)
+    //   console.log(result);
+    // },
   },
 };
 </script>

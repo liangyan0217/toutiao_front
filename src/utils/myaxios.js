@@ -24,7 +24,10 @@ axios.interceptors.response.use((response)=> {
   if(response.data.message==="用户信息验证失败"){
     Toast.fail('用户信息验证失败');
     // this.$router.push({name:'login'})
-    window.location.href="#/login"
+    // 获取当前页面的url
+    console.log(window.location.hash);
+    // 作为参数传给login
+    window.location.href="#/login?returnurl="+window.location.hash.substr(1)
   }
   // 对响应数据做点什么
   return response;

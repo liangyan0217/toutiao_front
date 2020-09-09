@@ -8,3 +8,12 @@ export const articleList =function(params){
     params
   })
 }
+
+// 文章详情
+// 接口类型:【GET】
+// 接口地址: /post/:id
+export const newdDetail = function(id){
+  return myaxios({
+    url:`/post/${id}`
+  })
+}

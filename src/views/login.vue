@@ -68,7 +68,14 @@ export default {
             this.$toast.success(data.data.message);
             localStorage.setItem("token", data.data.data.token);
             localStorage.setItem("id",data.data.data.user.id);
-            this.$router.push({name:'index'})
+            // decodeURIComponent:可以对url进行解码
+            let backUrl = decodeURIComponent(window.location.hash.split('=')[1])
+            console.log(backUrl);
+            if(backUrl){
+              this.$router.push({path:backUrl})
+            }else{
+              this.$router.push({name:'index'})
+            }
           }
         // })
         // .catch((err) => {

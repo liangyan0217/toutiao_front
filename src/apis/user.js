@@ -45,3 +45,33 @@ export const register = function(data){
     data
   })
 }
+
+// 关注用户
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /user_follows/:id
+export const userFollows =function(id){
+  return myaxios({
+    url:`/user_follows/${id}`,
+  })
+}
+
+// 取消关注用户
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /user_unfollow/:id
+export const userUnfollow =(id)=>{
+  return myaxios({
+    url:`/user_unfollow/${id}`,
+  })
+}
+
+// 点赞文章
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /post_like/:id
+export const postLike =(id)=>{
+  return myaxios({
+    url:`/post_like/${id}`
+  })
+}
