@@ -26,3 +26,13 @@ export const postComment =(id)=>{
     url:`/post_comment/${id}`
   })
 }
+
+// 收藏文章列表
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /post_star/:id
+export const postStar = (id)=>{
+  return myaxios({
+    url:`/post_star/${id}`
+  })
+}

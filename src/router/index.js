@@ -10,9 +10,16 @@ import User from '@/views/user/user.vue'
 import editUser from '@/views/user/editUser.vue'
 import Index from '@/views/index'
 import Newdetail from '@/views/newdetail'
+import CommentList from '@/views/moreCommentList'
 const router = new VueRouter({
   routes: [
     // 添加具体的路由配置，实现路由映射组件
+    // 路由默认重定向
+    {
+      name: 'default',
+      path: '/',
+      redirect: {name:'index'}
+    },
     {
       name: 'login',
       path: '/login',
@@ -45,6 +52,11 @@ const router = new VueRouter({
       name: 'newdetail',
       path: '/newdetail/:id',
       component: Newdetail
+    },
+    {
+      name: 'commentList',
+      path: '/commentList/:id',
+      component: CommentList
     }
   ]
 })
@@ -54,7 +66,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // console.log(123);
   // console.log(to);
-  if(to.name==='user1'){
+  if(to.name==='user'){
     if(localStorage.getItem('token')){
       next()
     }else{

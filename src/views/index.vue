@@ -14,7 +14,7 @@
     </div>
     <!-- 标签页 -->
     <van-tabs v-model="active" swipeable sticky>
-      <van-tab v-for="(value,index) in cateList" :key="index" :title="value.name">
+      <van-tab v-for="(value,index) in cateList" :key="index" :title="value.name" ref="scrollY">
         <van-list
           v-model="cateList[active].loading"
           @load="onLoad"
@@ -61,9 +61,20 @@ export default {
         console.log(123);
         this.init();
       }
+      document.documentElement.scrollTop=this.cateList[this.active].hasScrollTop
+      console.log(this.cateList[this.active].hasScrollTop);
+      console.log(this.active);
+      // console.log(document.documentElement.scrollTop);
+      console.log(this.cateList);
+      // window.scrollTo(0, this.cateList[this.active].hasScrollTop)
+      // console.log(document.documentElement.scrollTop);
+      // window.pageYOffset=this.cateList[this.active].hasScrollTop
+      // console.log(document.documentElement.scrollTop);
+      // window.scroll(0, this.cateList[this.active].hasScrollTop)
     },
   },
   async mounted() {
+    window.addEventListener('scroll', this.handleScrollY, true)
     // 栏目列表请求
     let res = await categoryList();
     console.log(res);
@@ -88,13 +99,31 @@ export default {
         finished: false,//若数据已全部加载完毕，finished设置为true
         // 下拉刷新
         isLoading: false,//下拉刷新加载完毕，isLoading设置为false
+        // 存储页面滚动距离顶部的距离
+        hasScrollTop:0
       };
     });
     console.log(this.cateList);
     // 新闻列表
     this.init();
   },
+  // destroyed(){
+  //   window.removeEventListener('scroll', this.handleScrollY);
+  // },
   methods: {
+    handleScrollY() {
+      // console.log('滚动高度', window.pageYOffset)
+      console.log(document.documentElement.scrollTop);
+      if(document.documentElement.scrollTop!=40){
+        this.cateList[this.active].hasScrollTop=document.documentElement.scrollTop
+      }
+      console.log(this.cateList);
+    },
+    // handlerScroll(){
+    //   this.cateList[this.active].hasScrollTop=document.documentElement.scrollTop
+    //   console.log(this.cateList[this.active].hasScrollTop);
+    //   console.log(this.cateList);
+    // },
     async init() {
       // 获取新闻列表数据
       let result = await articleList({
@@ -120,9 +149,6 @@ export default {
           // 数据条数
           pageSize: this.cateList[this.active].pageSize,
         });
-        // console.log(this.cateList[this.active].pageSize);
-        // console.log(this.cateList[this.active].pageIndex);
-        // console.log(result.data.data);
         // 将获取到的文章数据追加到改造出的postList中
         this.cateList[this.active].postList.push(...result.data.data);
         this.cateList[this.active].loading = false;

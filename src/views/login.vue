@@ -32,7 +32,7 @@
 <script>
 import mybutton from "@/components/mybutton";
 import myipt from "@/components/myipt";
-import {login} from '@/apis/user'
+import { login } from "@/apis/user";
 export default {
   data() {
     return {
@@ -56,31 +56,32 @@ export default {
       // 异步方法没有返回值，一般都需要传入回调函数
       // await必须处于async函数中，async标记的函数就是await关键字所在的函数，有await必须有async，反之不一定
       // await：可以让异步操作先执行完，再执行后续的代码，同时可以获取then回调函数的返回值
-      let data = await login(this.user)
-        // .then((data) => {
-        //   console.log(data);
-          if (data.data.statusCode === 401) {
-            this.$toast.fail({
-              message:data.data.message,
-              // duration:5000
-            });
-          } else {
-            this.$toast.success(data.data.message);
-            localStorage.setItem("token", data.data.data.token);
-            localStorage.setItem("id",data.data.data.user.id);
-            // decodeURIComponent:可以对url进行解码
-            let backUrl = decodeURIComponent(window.location.hash.split('=')[1])
-            console.log(backUrl);
-            if(!backUrl){
-              this.$router.push({path:backUrl})
-            }else{
-              this.$router.push({name:'index'})
-            }
-          }
-        // })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+      let data = await login(this.user);
+      // .then((data) => {
+      //   console.log(data);
+      if (data.data.statusCode === 401) {
+        this.$toast.fail({
+          message: data.data.message,
+          // duration:5000
+        });
+      } else {
+        this.$toast.success(data.data.message);
+        localStorage.setItem("token", data.data.data.token);
+        localStorage.setItem("id", data.data.data.user.id);
+        // localStorage.setItem("userInfo",JSON.stringify(data.data.data.user))
+        // decodeURIComponent:可以对url进行解码
+        let backUrl = decodeURIComponent(window.location.hash.split("=")[1]);
+        console.log(backUrl);
+        if (backUrl && backUrl != 'undefined') {
+          this.$router.push({ path: backUrl });
+        } else {
+          this.$router.push({ name: "index" });
+        }
+      }
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     },
   },
 };

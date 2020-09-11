@@ -3,6 +3,7 @@
     <myedit title="编辑资料">
       <!-- 后退：$router.go(-1) 前进：$router.go(1) -->
       <span class="iconfont iconjiantou2" slot="left" @click="$router.back()"></span>
+      <van-icon name="wap-home-o" size="25" slot="right" @click="$router.push({name:'index'})"/>
     </myedit>
     <div class="avatar">
       <img :src="baseURL+current.head_img" alt />

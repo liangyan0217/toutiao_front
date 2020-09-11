@@ -41,15 +41,22 @@
         </div>
         <div class="text">{{commentList[index].content}}</div>
       </div>
-      <div class="more">更多跟帖</div>
+      <div class="more" @click="$router.push({path:`/commentList/${$route.params.id}`})">更多跟帖</div>
+    </div>
+    <div class="footer">
+      <myComment @click="collectArticle" :post="article"></myComment>
     </div>
   </div>
 </template>
 
 <script>
-import { newdDetail,postComment } from "@/apis/article";
+import { newdDetail,postComment,postStar } from "@/apis/article";
 import { userFollows,userUnfollow,postLike } from "@/apis/user";
+import myComment from "@/components/myComment";
 export default {
+  components: {
+    myComment
+  },
   data(){
     return{
       article:{},
@@ -67,7 +74,6 @@ export default {
     console.log(res);
     this.commentList=res.data.data
     this.baseURL=res.config.baseURL
-
   },
   methods: {
     // 用户关注与取消关注
@@ -94,6 +100,13 @@ export default {
       }
       this.$toast.success(result.data.message)
       this.article.has_like = !this.article.has_like
+    },
+    // 收藏文章
+    async collectArticle(){
+      let res = await postStar(this.article.id)
+      console.log(res);
+      this.$toast.success(res.data.message)
+      this.article.has_star = !this.article.has_star
     }
   }
 }
