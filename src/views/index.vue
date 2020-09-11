@@ -113,11 +113,11 @@ export default {
   methods: {
     handleScrollY() {
       // console.log('滚动高度', window.pageYOffset)
-      console.log(document.documentElement.scrollTop);
+      // console.log(document.documentElement.scrollTop);
       if(document.documentElement.scrollTop!=40){
         this.cateList[this.active].hasScrollTop=document.documentElement.scrollTop
       }
-      console.log(this.cateList);
+      // console.log(this.cateList);
     },
     // handlerScroll(){
     //   this.cateList[this.active].hasScrollTop=document.documentElement.scrollTop

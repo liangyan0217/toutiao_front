@@ -75,3 +75,24 @@ export const postLike =(id)=>{
     url:`/post_like/${id}`
   })
 }
+
+// 用户关注列表
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /user_follows
+
+export const myFollows =()=>{
+  return myaxios({
+    url:'/user_follows'
+  })
+}
+
+// 收藏文章列表
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /user_star
+export const userStar =()=>{
+  return myaxios({
+    url:`/user_star`
+  })
+}

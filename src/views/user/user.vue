@@ -13,10 +13,10 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </router-link>
-    <mycell title="我的关注" desc="关注的用户"></mycell>
+    <mycell title="我的关注" desc="关注的用户" @click="$router.push({name:'follow'})"></mycell>
     <mycell title="我的跟帖" desc="跟帖/回复"></mycell>
-    <mycell title="我的收藏" desc="文章/视频"></mycell>
-    <mycell title="我的关注"></mycell>
+    <mycell title="我的收藏" desc="文章/视频" @click="$router.push({name:'star'})"></mycell>
+    <mycell title="设置"></mycell>
     <mybutton class="btn" type='danger' @click="handlerclick">退出</mybutton>
   </div>
 </template>
@@ -24,7 +24,7 @@
 <script>
 import mycell from '@/components/mycell'
 import mybutton from '@/components/mybutton'
-import { user } from '@/apis/user';
+import { user,userStar } from '@/apis/user';
 export default {
   data(){
     return{
@@ -59,7 +59,7 @@ export default {
     handlerclick(){
       localStorage.removeItem('token','id')
       this.$router.push({name:'index'})
-    }
+    },
   }
 };
 </script>

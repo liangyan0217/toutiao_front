@@ -36,3 +36,4 @@ export const postStar = (id)=>{
     url:`/post_star/${id}`
   })
 }
+

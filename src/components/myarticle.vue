@@ -5,7 +5,8 @@
         <p class="content">{{post.title}}</p>
         <p class="info">
           <span>{{post.user.nickname}}</span>
-          <span>{{post.comment_length}}跟帖</span>
+          <span v-if="post.comment_length || post.comment_length===0">{{post.comment_length}}跟帖</span>
+          <span v-if="post.comments">{{post.comments.length}}跟帖</span>
         </p>
       </div>
       <img :src="post.cover[0].url" alt />
@@ -18,7 +19,8 @@
       </div>
       <div class="info">
         <span>{{post.user.nickname}}</span>
-        <span>{{post.comment_length}}跟帖</span>
+        <span v-if="post.comment_length || post.comment_length===0">{{post.comment_length}}跟帖</span>
+        <span v-if="post.comments">{{post.comments.length}}跟帖</span>
       </div>
     </div>
     <div class="single" v-else-if="post.type==1&&post.cover.length<=3" @click="$router.push({path:`/newdetail/${post.id}`})">
@@ -28,7 +30,8 @@
       </div>
       <div class="info">
         <span>{{post.user.nickname}}</span>
-        <span>{{post.comment_length}}跟帖</span>
+        <span v-if="post.comment_length || post.comment_length===0">{{post.comment_length}}跟帖</span>
+        <span v-if="post.comments">{{post.comments.length}}跟帖</span>
       </div>
     </div>
   </div>
@@ -42,6 +45,11 @@ export default {
       required: true,
     },
   },
+  mounted () {
+    console.log(this.post.comments);
+    console.log(this.post.comment_length);
+    // console.log(this.post.comment_length);
+  }
 };
 </script>
 

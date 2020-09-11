@@ -44,7 +44,7 @@
       <div class="more" @click="$router.push({path:`/commentList/${$route.params.id}`})">更多跟帖</div>
     </div>
     <div class="footer">
-      <myComment @click="collectArticle" :post="article"></myComment>
+      <myCommentFooter @click="collectArticle" :post="article"></myCommentFooter>
     </div>
   </div>
 </template>
@@ -52,10 +52,10 @@
 <script>
 import { newdDetail,postComment,postStar } from "@/apis/article";
 import { userFollows,userUnfollow,postLike } from "@/apis/user";
-import myComment from "@/components/myComment";
+import myCommentFooter from "@/components/myCommentFooter";
 export default {
   components: {
-    myComment
+    myCommentFooter
   },
   data(){
     return{

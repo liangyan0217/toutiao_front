@@ -11,6 +11,8 @@ import editUser from '@/views/user/editUser.vue'
 import Index from '@/views/index'
 import Newdetail from '@/views/newdetail'
 import CommentList from '@/views/moreCommentList'
+import Follow from '@/views/myfollow'
+import Star from '@/views/mystar'
 const router = new VueRouter({
   routes: [
     // 添加具体的路由配置，实现路由映射组件
@@ -57,6 +59,16 @@ const router = new VueRouter({
       name: 'commentList',
       path: '/commentList/:id',
       component: CommentList
+    },
+    {
+      name: 'follow',
+      path: '/follow',
+      component: Follow
+    },
+    {
+      name: 'star',
+      path: '/star',
+      component: Star
     }
   ]
 })
