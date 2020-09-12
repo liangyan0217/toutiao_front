@@ -1,10 +1,12 @@
 <template>
   <div class="comment">
     <div class="addcomment" v-show="!isFocus">
-      <input type="text" placeholder="写跟帖" @focus="handlerFocus"/>
+      <input type="text" placeholder="写跟帖" @focus="handlerFocus" />
       <span class="comment">
         <i class="iconfont iconpinglun-"></i>
-        <em>{{post.comment_length}}</em>
+        <!-- 解决路由运用編程式导航，一直点击同一个按钮报错问题 -->
+        <em @click="$router.push({ path: `/commentList/${post.id}`},(onComplete) => {},(onAbort) => {})"
+        >{{post.comment_length}}</em>
       </span>
       <i class="iconfont iconshoucang" @click="handlerCollect" :class="{active:post.has_star}"></i>
       <i class="iconfont iconfenxiang"></i>
@@ -12,8 +14,8 @@
     <div class="inputcomment" v-show="isFocus">
       <textarea ref="commtext" rows="5"></textarea>
       <div>
-        <span>发 送</span>
-        <span @click="isFocus=false">取 消</span>
+        <span @click="handlersend">发 送</span>
+        <span @click="handlerCancle">取 消</span>
       </div>
     </div>
   </div>
@@ -36,11 +38,28 @@ export default {
     //   获取焦点时触发
     handlerFocus() {
       this.isFocus = !this.isFocus;
-      this.$refs.commtext.focus();
+      // vue中此处的渲染和聚焦的操作是不同步的，先渲染，后聚焦，所以聚焦要加延迟
+      // 方法一：
+      // setTimeout(()=>{
+      //   this.$refs.commtext.focus();
+      // },10)
+      // 方法二：
+      this.$nextTick(() => {
+        this.$refs.commtext.focus();
+      });
     },
     handlerCollect(e) {
       this.$emit("click", e);
     },
+    handlersend() {
+      this.$emit("click", this.$refs.commtext.value);
+      this.$refs.commtext.value=''
+      this.isFocus=!this.isFocus
+    },
+    handlerCancle(){
+      this.$refs.commtext.value=''
+      this.isFocus=false
+    }
   },
 };
 </script>

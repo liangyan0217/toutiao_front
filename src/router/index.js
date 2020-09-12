@@ -10,7 +10,7 @@ import User from '@/views/user/user.vue'
 import editUser from '@/views/user/editUser.vue'
 import Index from '@/views/index'
 import Newdetail from '@/views/newdetail'
-import CommentList from '@/views/moreCommentList'
+import CommentList from '@/views/commentList'
 import Follow from '@/views/myfollow'
 import Star from '@/views/mystar'
 const router = new VueRouter({

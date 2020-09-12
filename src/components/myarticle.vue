@@ -45,11 +45,6 @@ export default {
       required: true,
     },
   },
-  mounted () {
-    console.log(this.post.comments);
-    console.log(this.post.comment_length);
-    // console.log(this.post.comment_length);
-  }
 };
 </script>
 

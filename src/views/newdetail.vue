@@ -70,7 +70,7 @@ export default {
       console.log(result);
       this.article=result.data.data
     // 获取评论列表
-    let res = await postComment(this.$route.params.id)
+    let res = await postComment(this.$route.params.id,{pageIndex:1,pageSize:30})
     console.log(res);
     this.commentList=res.data.data
     this.baseURL=res.config.baseURL

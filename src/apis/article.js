@@ -21,9 +21,10 @@ export const newdDetail = function(id){
 // 评论列表
 // 接口类型:【GET】
 // 接口地址: /post_comment/:id
-export const postComment =(id)=>{
+export const postComment =(id,params)=>{
   return myaxios({
-    url:`/post_comment/${id}`
+    url:`/post_comment/${id}`,
+    params
   })
 }
 
@@ -37,3 +38,14 @@ export const postStar = (id)=>{
   })
 }
 
+// 发布评论
+// 接口类型:【POST】
+// 需要验证:【Authorization 】
+// 接口地址: /post_comment/:id
+export const sendPostComment =(id,data)=>{
+  return myaxios({
+    method:'post',
+    url:`/post_comment/${id}`,
+    data
+  })
+}
