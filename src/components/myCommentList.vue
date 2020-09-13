@@ -1,12 +1,12 @@
 <template>
   <div class="commentItem">
-    <myCommentList :parent="parent.parent" v-if="parent.parent"></myCommentList>
+    <myCommentList :parent="parent.parent" v-if="parent.parent" @resComment="handlerRes(parent)"></myCommentList>
       <div class="top">
           <div class="left">
               <span>{{parent.user.nickname}}</span> &nbsp;&nbsp;&nbsp;
               <span>2分钟前</span>
           </div>
-          <span>回复</span>
+          <span @click="handlerRes">回复</span>
       </div>
       <div class="bottom">{{parent.content}}</div>
   </div>
@@ -16,6 +16,12 @@
 export default {
   name:'myCommentList',
   props:['parent'],
+  methods: {
+    handlerRes(){
+      this.$emit('resComment')
+      console.log(this.parent);
+    }
+  }
 };
 </script>
 

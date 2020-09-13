@@ -2,11 +2,13 @@
   <div class="comment">
     <div class="addcomment" v-show="!isFocus">
       <input type="text" placeholder="写跟帖" @focus="handlerFocus" />
-      <span class="comment">
+      <span
+        class="comment"
+        @click="$router.push({ path: `/commentList/${post.id}`},(onComplete) => {},(onAbort) => {})"
+      >
         <i class="iconfont iconpinglun-"></i>
         <!-- 解决路由运用編程式导航，一直点击同一个按钮报错问题 -->
-        <em @click="$router.push({ path: `/commentList/${post.id}`},(onComplete) => {},(onAbort) => {})"
-        >{{post.comment_length}}</em>
+        <em>{{post.comment_length}}</em>
       </span>
       <i class="iconfont iconshoucang" @click="handlerCollect" :class="{active:post.has_star}"></i>
       <i class="iconfont iconfenxiang"></i>
@@ -22,17 +24,40 @@
 </template>
 
 <script>
+import { sendPostComment } from "@/apis/article";
 export default {
   props: {
     post: {
       type: Object,
       required: true,
     },
+    resComment: {
+      type: Object,
+    },
   },
   data() {
     return {
       isFocus: false,
     };
+  },
+  watch: {
+    resComment(newv,oldv) {
+      console.log(newv,oldv);
+      if(this.resComment){
+        this.isFocus = true;
+        this.$nextTick(() => {
+          this.$refs.commtext.focus();
+        });
+      }
+    },
+    // resComment(){
+    //   if(this.resComment){
+    //     this.isFocus=true
+    //     this.$nextTick(() => {
+    //     this.$refs.commtext.focus();
+    //     });
+    //   }
+    // }
   },
   methods: {
     //   获取焦点时触发
@@ -48,18 +73,34 @@ export default {
         this.$refs.commtext.focus();
       });
     },
+    // 收藏
     handlerCollect(e) {
       this.$emit("click", e);
     },
-    handlersend() {
-      this.$emit("click", this.$refs.commtext.value);
-      this.$refs.commtext.value=''
-      this.isFocus=!this.isFocus
+    // 发送
+    async handlersend() {
+      if (this.$refs.commtext.value !== "") {
+        let res = await sendPostComment(this.$route.params.id, {
+          content: this.$refs.commtext.value,
+          parent_id: this.resComment.id,
+        });
+        console.log(res);
+        // this.init();
+        // window.scrollTo(0, 0);
+        this.$toast.success(res.data.message);
+      } else {
+        this.$toast.fail("内容不能为空");
+      }
+      this.$emit("resetTop");
+      this.$refs.commtext.value = "";
+      this.isFocus = !this.isFocus;
     },
-    handlerCancle(){
-      this.$refs.commtext.value=''
-      this.isFocus=false
-    }
+    // 取消
+    handlerCancle() {
+      this.$refs.commtext.value = "";
+      this.isFocus = false;
+      this.$emit('reset')
+    },
   },
 };
 </script>

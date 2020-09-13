@@ -12,13 +12,18 @@
             <p>{{value.user.nickname}}</p>
             <span>2小时前</span>
           </div>
-          <span>回复</span>
+          <span @click="handlerRes(value)">回复</span>
         </div>
-        <myCommentList :parent="value.parent" v-if="value.parent"></myCommentList>
+        <myCommentList :parent="value.parent" v-if="value.parent" @resComment="handlerRes(value)"></myCommentList>
         <div class="text">{{value.content}}</div>
       </div>
     </div>
-    <myCommentFooter :post="articleDetail" @click="handlerclick"></myCommentFooter>
+    <myCommentFooter
+      :post="articleDetail"
+      @resetTop="resetTop"
+      :resComment="comment"
+      @reset="comment=null"
+    ></myCommentFooter>
   </div>
 </template>
 
@@ -33,6 +38,7 @@ export default {
     return {
       commentItem: [],
       articleDetail: {},
+      comment: {},
     };
   },
   components: {
@@ -41,30 +47,42 @@ export default {
     myCommentFooter,
   },
   async mounted() {
-    this.init()
+    this.init();
   },
   methods: {
-    async init(){
+    // 封装获取评论列表
+    async init() {
       let res = await postComment(this.$route.params.id, {
-      pageSize: 50,
-      pageIndex: 1,
-    });
-    console.log(res);
-    this.commentItem = res.data.data.map((v) => {
-      v.user.head_img = myaxios.defaults.baseURL + v.user.head_img;
-      return v;
-    });
-    let res2 = await newdDetail(this.$route.params.id);
-    this.articleDetail = res2.data.data;
-    },
-    async handlerclick(content) {
-      let res = await sendPostComment(this.$route.params.id, {
-        content: content,
+        pageSize: 50,
+        pageIndex: 1,
       });
       console.log(res);
-      this.init()
-      window.scrollTo(0,0)
-      this.$toast.success(res.data.message)   
+      this.commentItem = res.data.data.map((v) => {
+        v.user.head_img = myaxios.defaults.baseURL + v.user.head_img;
+        return v;
+      });
+      let res2 = await newdDetail(this.$route.params.id);
+      this.articleDetail = res2.data.data;
+    },
+    // 发送评论
+    async resetTop() {
+      // if (content !== "") {
+      //   let res = await sendPostComment(this.$route.params.id, {
+      //     content: content,
+      //     parent_id: this.comment.id,
+      //   });
+      //   console.log(res);
+        this.init();
+        window.scrollTo(0, 0);
+      //   this.$toast.success(res.data.message);
+      // } else {
+      //   this.$toast.fail("内容不能为空");
+      // }
+    },
+    // 回复
+    handlerRes(data) {
+      console.log(data);
+      this.comment = data;
     },
   },
 };

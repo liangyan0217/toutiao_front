@@ -24,7 +24,12 @@
           <van-pull-refresh v-model="cateList[active].isLoading" @refresh="onRefresh">
             <!-- 文章列表 -->
             <!-- <keep-alive> -->
-            <myarticle v-for="(value,index) in value.postList" :key="value.id" :post="value" @click="handlerclick(index)"></myarticle>
+            <myarticle
+              v-for="(value,index) in value.postList"
+              :key="value.id"
+              :post="value"
+              @click="handlerclick(index)"
+            ></myarticle>
             <!-- </keep-alive> -->
           </van-pull-refresh>
         </van-list>
@@ -35,7 +40,7 @@
 
 <script>
 import { categoryList } from "@/apis/cate";
-import { articleList,newdDetail } from "@/apis/article";
+import { articleList, newdDetail } from "@/apis/article";
 import myarticle from "@/components/myarticle";
 export default {
   components: {
@@ -61,7 +66,9 @@ export default {
         console.log(123);
         this.init();
       }
-      document.documentElement.scrollTop=this.cateList[this.active].hasScrollTop
+      document.documentElement.scrollTop = this.cateList[
+        this.active
+      ].hasScrollTop;
       console.log(this.cateList[this.active].hasScrollTop);
       console.log(this.active);
       // console.log(document.documentElement.scrollTop);
@@ -74,11 +81,25 @@ export default {
     },
   },
   async mounted() {
-    window.addEventListener('scroll', this.handleScrollY, true)
+    document.querySelector(".van-sticky").onclick = (e) => {
+      console.log(e.target.className);
+      if (e.target.className === "van-sticky") {
+        this.$router.push({ name: "cateList" });
+      }
+    };
+    window.addEventListener("scroll", this.handleScrollY, true);
     // 栏目列表请求
-    let res = await categoryList();
-    console.log(res);
-    this.cateList = res.data.data;
+      let res = await categoryList();
+      console.log(res);
+      if(localStorage.getItem('myCateList') && JSON.parse(localStorage.getItem('myCateList')).length !== 0){
+      if(localStorage.getItem('token')){
+        this.cateList=res.data.data.slice(0,2).concat(JSON.parse(localStorage.getItem('myCateList')))
+      }else{
+        this.cateList=res.data.data.slice(0,1).concat(JSON.parse(localStorage.getItem('myCateList')))
+      }
+    }else{
+      this.cateList = res.data.data
+    }
     this.id = localStorage.getItem("id");
     // 1.不同栏目的新闻数据应该是不一样的，意味着每个栏目都有属于这个栏目自己的新闻列表
     // 2.获取新闻列表数据的时候，需要传递栏目的id
@@ -87,20 +108,20 @@ export default {
     // 5.基于业务需求，我们可以对源数据进行改造，我们可以在每一个栏目对象中，添加用于存储这个栏目新闻数据的数组
     this.cateList = this.cateList.map((value) => {
       return {
-        ...value,// 展开对象，数据改造前的对象的所有成员
-        postList: [],//这个栏目所有的数据
+        ...value, // 展开对象，数据改造前的对象的所有成员
+        postList: [], //这个栏目所有的数据
         // 当前页数
         pageIndex: 1,
         // 数据条数
         pageSize: 5,
         // 上拉加载
-        loading: false,//上拉加载完毕,loading设置为false
+        loading: false, //上拉加载完毕,loading设置为false
         // 上拉加载完成
-        finished: false,//若数据已全部加载完毕，finished设置为true
+        finished: false, //若数据已全部加载完毕，finished设置为true
         // 下拉刷新
-        isLoading: false,//下拉刷新加载完毕，isLoading设置为false
+        isLoading: false, //下拉刷新加载完毕，isLoading设置为false
         // 存储页面滚动距离顶部的距离
-        hasScrollTop:0
+        hasScrollTop: 0,
       };
     });
     console.log(this.cateList);
@@ -114,8 +135,9 @@ export default {
     handleScrollY() {
       // console.log('滚动高度', window.pageYOffset)
       // console.log(document.documentElement.scrollTop);
-      if(document.documentElement.scrollTop!=40){
-        this.cateList[this.active].hasScrollTop=document.documentElement.scrollTop
+      if (document.documentElement.scrollTop != 40) {
+        this.cateList[this.active].hasScrollTop =
+          document.documentElement.scrollTop;
       }
       // console.log(this.cateList);
     },
@@ -172,7 +194,7 @@ export default {
         this.cateList[this.active].postList.push(...result.data.data);
         this.cateList[this.active].isLoading = false;
         // 将finished重置为false,否则不能再进行上拉加载
-        this.cateList[this.active].finished = false
+        this.cateList[this.active].finished = false;
       }, 2000);
     },
   },
@@ -207,6 +229,21 @@ export default {
   .logo,
   .right {
     padding: 0 10px;
+  }
+}
+/deep/.van-sticky {
+  position: relative;
+  &::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 52px;
+    height: 44px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 30px;
   }
 }
 </style>
