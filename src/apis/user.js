@@ -96,3 +96,13 @@ export const userStar =()=>{
     url:`/user_star`
   })
 }
+
+// 用户评论列表
+// 接口类型:【GET】
+// 需要验证:【Authorization 】
+// 接口地址: /user_comments
+export const userComments =()=>{
+  return myaxios({
+    url:'/user_comments'
+  })
+}

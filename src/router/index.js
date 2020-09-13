@@ -14,6 +14,7 @@ import CommentList from '@/views/commentList'
 import Follow from '@/views/myfollow'
 import Star from '@/views/mystar'
 import CateList from '@/views/cateList'
+import myComment from '@/views/myComment'
 const router = new VueRouter({
   routes: [
     // 添加具体的路由配置，实现路由映射组件
@@ -75,6 +76,11 @@ const router = new VueRouter({
       name: 'cateList',
       path: '/cateList',
       component: CateList
+    },
+    {
+      name: 'mycomment',
+      path: '/mycomment',
+      component: myComment
     }
   ]
 })

@@ -14,7 +14,7 @@
       </div>
     </router-link>
     <mycell title="我的关注" desc="关注的用户" @click="$router.push({name:'follow'})"></mycell>
-    <mycell title="我的跟帖" desc="跟帖/回复"></mycell>
+    <mycell title="我的跟帖" desc="跟帖/回复" @click="$router.push({name:'mycomment'})"></mycell>
     <mycell title="我的收藏" desc="文章/视频" @click="$router.push({name:'star'})"></mycell>
     <mycell title="设置"></mycell>
     <mybutton class="btn" type='danger' @click="handlerclick">退出</mybutton>
@@ -57,7 +57,8 @@ export default {
   },
   methods: {
     handlerclick(){
-      localStorage.removeItem('token','id')
+      localStorage.removeItem('token')
+      localStorage.removeItem('id')
       this.$router.push({name:'index'})
     },
   }
