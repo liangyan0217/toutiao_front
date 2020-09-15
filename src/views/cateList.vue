@@ -58,10 +58,10 @@ export default {
   methods: {
     // 删除栏目
     delCateList(value,index){
-      this.cateList.splice(index,1)
-      localStorage.setItem('myCateList',JSON.stringify(this.cateList))
       this.addCateList.push(value)
       localStorage.setItem('notHasCateList',JSON.stringify(this.addCateList))
+      this.cateList.splice(index,1)
+      localStorage.setItem('myCateList',JSON.stringify(this.cateList))
     },
     // 添加栏目
     notHasCateList(value,index){

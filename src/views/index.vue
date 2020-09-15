@@ -4,7 +4,7 @@
       <div class="logo">
         <span class="iconfont iconnew"></span>
       </div>
-      <div class="search">
+      <div class="search" @click="$router.push({name:'search'})">
         <van-icon name="search" />
         <span>搜索商品</span>
       </div>

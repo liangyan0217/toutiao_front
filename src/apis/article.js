@@ -49,3 +49,13 @@ export const sendPostComment =(id,data)=>{
     data
   })
 }
+
+// 搜索文章
+// 接口类型:【GET】
+// 接口地址: /post_search
+export const postSearch = (keyword)=>{
+  return myaxios({
+    url:'/post_search',
+    params:{keyword}
+  })
+}

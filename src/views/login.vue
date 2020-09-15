@@ -18,7 +18,7 @@
           :rlues="/^1[35789]\d{9}$|^1\d{4}$/"
           msg="手机号不合法，请重新输入"
         ></myipt>
-        <myipt placeholder="密码" v-model="user.password" :rlues="/^\S{3,6}$/" msg="密码不符合规则"></myipt>
+        <myipt placeholder="密码" v-model="user.password" :rlues="/^\S{3,6}$/" msg="密码不符合规则" @keyup.enter.native="login"></myipt>
       </div>
       <p class="tips">
         没有账号？
