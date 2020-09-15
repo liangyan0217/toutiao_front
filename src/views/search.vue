@@ -2,7 +2,7 @@
   <div class="search">
     <div class="header">
       <span class="iconfont iconjiantou2" @click="$router.back()"></span>
-      <van-search v-model="userKey" placeholder="请输入搜索关键词" shape="round" @blur="handleSearch"></van-search>
+      <van-search v-model="userKey" placeholder="请输入搜索关键词" shape="round" @keydown.enter.native="handleSearch"></van-search>
       <div @click="handleSearch">搜索</div>
     </div>
     <div class="historyList">
@@ -50,6 +50,9 @@ export default {
       let res = await postSearch(this.userKey);
       console.log(res);
       this.searcList = res.data.data;
+      if(this.historyList.length>=3){
+        this.historyList.pop()
+      }
       // 删除重复的历史数据
       let index = this.historyList.indexOf(this.userKey);
       if (index != -1) {
